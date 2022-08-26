@@ -83,21 +83,21 @@ const Basket = () => {
         return (
           <div className="cartItem flex flex-col pt-2 space-y-2" key={item.id}>
             <div className="cartItem__count flex flex-row justify-between">
-              <p className="font-medium text-2xl">{item.name}</p>
+              <p className="font-medium text-1xl md:text-2xl">{item.name}</p>
               <p className="text-left   ">
                 <span className="text-gray-500   pr-1"> &#163;</span>
                 {item.price}
               </p>
-              <div className="count-btns w-40 flex flex-row justify-between">
+              <div className="count-btns flex flex-row justify-between">
                 <button
-                  className="text-lg px-4 bg-blue-400 text-white rounded-md hover:bg-blue-500"
+                  className="text-lg px-3 w-fit bg-blue-400 text-white rounded-md hover:bg-blue-500"
                   onClick={() => handleIncrease(item)}
                 >
                   +
                 </button>
-                <p>{item.count}</p>
+                <p className="mx-3 md:mx-4">{item.count}</p>
                 <button
-                  className="text-lg px-4 bg-white text-black rounded-md border-0 border-blue-400 outline outline-1 outline-blue-500 hover:bg-blue-50"
+                  className="text-lg px-3 w-fit bg-white text-black rounded-md border-2 border-blue-400  hover:bg-blue-50"
                   onClick={() => {
                     if (item.count > 1) {
                       handleDecrease(item);

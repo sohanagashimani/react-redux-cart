@@ -16,7 +16,7 @@ const Products = () => {
   };
 
   return (
-    <div className="app__products bg-white p-8 w-auto space-y-3 m-2 md:w-[45rem] text-2xl">
+    <div className="app__products text-xl bg-white p-8 w-auto space-y-3 m-2 md:w-[45rem] md:text-2xl">
       <h2 className="text-4xl md:text-6xl">Products</h2>
       <hr />
       {data.map((item) => {
