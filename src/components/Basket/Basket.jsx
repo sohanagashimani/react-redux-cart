@@ -117,11 +117,11 @@ const Basket = () => {
               {item.price * item.count}
             </p>
             <hr />
-            <p className="text-right text-xl text-red-500">
+            <p className="text-right text-lg text-red-500">
               Savings: {savings[item.id]}
             </p>
             <hr />
-            <p className="text-right text-gray-800">
+            <p className="text-right text-lg text-gray-800">
               Item cost <span className="text-gray-500   pr-1"> &#163;</span>
               {itemSubtotal[item.id]}
             </p>
