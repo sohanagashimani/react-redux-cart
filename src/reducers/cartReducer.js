@@ -36,6 +36,7 @@ const cartReducer = (cart = [], action) => {
     case "OFFER":
       switch (action.payload.item.id) {
         case 4: {
+          console.log("here");
           let item = action.payload.item;
           let cheeseSubAmt = item.price * Math.ceil(item.count / 2);
           let cheeseSavingAmt = item.count * item.price - cheeseSubAmt;
@@ -72,20 +73,21 @@ const cartReducer = (cart = [], action) => {
           //   let booleanIsSoupInCart = false;
           let soupQty = 0;
           let cart = action.payload.cart;
-          cart.forEach((item) => {
+          cart?.forEach((item) => {
             if (item.id === 5) soupQty = item.count;
           });
 
           //   console.log(soupQty);
 
           let breadSubAmt;
-          let breadSavingAmt;
+          let breadSavingAmt = 0;
           let item = action.payload.item;
           //   console.log(soupQty);
           if (soupQty >= 1) {
             if (soupQty >= Number(item.count)) {
               breadSubAmt = item.count * (item.price / 2);
               breadSavingAmt = item.price * item.count - breadSubAmt;
+              console.log(breadSavingAmt);
             } else if (soupQty < Number(item.count)) {
               breadSubAmt =
                 (item.count - soupQty) * item.price +
@@ -149,9 +151,9 @@ const cartReducer = (cart = [], action) => {
             ...prev,
             [id]: 0,
           }));
+
           break;
       }
-
       return cart;
 
     default:

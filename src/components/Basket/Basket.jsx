@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { increaseItem, decreaseItem, offer } from "../../actions";
+import data from "../../data";
+
 const Basket = () => {
   // console.log(cart);
   const cart = useSelector((state) => state);
@@ -24,8 +26,32 @@ const Basket = () => {
         })
       );
     });
+    itemsNotInCart.forEach((item) => {
+      defaultSavings(item);
+    });
     // eslint-disable-next-line
   }, [cart]);
+
+  let itemNameInCart = [];
+  cart?.forEach((item) => {
+    if (!itemNameInCart.includes(item.id)) {
+      itemNameInCart.push(item.id);
+    }
+  });
+  let itemsNotInCart = [];
+
+  data.forEach((item) => {
+    if (!itemNameInCart.includes(item.id)) {
+      itemsNotInCart.push(item);
+    }
+  });
+  const defaultSavings = (item) => {
+    setSavings((prev) => ({
+      ...prev,
+      [item.id]: 0,
+    }));
+  };
+
   useEffect(() => {
     setSavingsArr(Object.values(savings));
   }, [savings]);
@@ -96,7 +122,8 @@ const Basket = () => {
             </p>
             <hr />
             <p className="text-right text-gray-800">
-              Item cost: {itemSubtotal[item.id]}
+              Item cost <span className="text-gray-500   pr-1"> &#163;</span>
+              {itemSubtotal[item.id]}
             </p>
             <hr className="border-gray-400" />
           </div>
