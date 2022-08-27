@@ -11,6 +11,7 @@ const Basket = () => {
   const [itemSubtotal, setItemSubtotal] = useState({});
   const [savings, setSavings] = useState({});
   const [savingsArr, setSavingsArr] = useState([]);
+  const [itemSubtotalArr, setItemSubTotalArr] = useState([]);
 
   useEffect(() => {
     cart?.forEach((item) => {
@@ -27,7 +28,7 @@ const Basket = () => {
       );
     });
     itemsNotInCart.forEach((item) => {
-      defaultSavings(item);
+      defaults(item);
     });
     // eslint-disable-next-line
   }, [cart]);
@@ -45,8 +46,12 @@ const Basket = () => {
       itemsNotInCart.push(item);
     }
   });
-  const defaultSavings = (item) => {
+  const defaults = (item) => {
     setSavings((prev) => ({
+      ...prev,
+      [item.id]: 0,
+    }));
+    setItemSubtotal((prev) => ({
       ...prev,
       [item.id]: 0,
     }));
@@ -54,26 +59,25 @@ const Basket = () => {
 
   useEffect(() => {
     setSavingsArr(Object.values(savings));
-  }, [savings]);
+    setItemSubTotalArr(Object.values(itemSubtotal));
+  }, [savings, itemSubtotal]);
 
-  // let savingsArr = Object.values(savings);
-  const addition = (acc, currentValue) => {
-    return acc + currentValue.price * currentValue.count;
-  };
-  const total = cart?.reduce(addition, 0);
-  const addition2 = (acc, currentValue) => {
-    return acc + currentValue;
-  };
-  const totalSavings = savingsArr?.reduce(addition2, 0);
+  let total = 0;
+  let totalSavings = 0;
 
+  itemSubtotalArr.forEach((item) => {
+    total = total + item;
+  });
+
+  savingsArr.forEach((item) => {
+    totalSavings = totalSavings + item;
+  });
   const handleIncrease = (item) => {
     increaseItem(dispatch({ type: "INCREASE_ITEM", payload: item }));
   };
-  // console.log("itemSubtotal: " + itemSubtotal + " saving : " + savings);
   const handleDecrease = (item) => {
     decreaseItem(dispatch({ type: "DECREASE_ITEM", payload: item }));
   };
-  // console.log(itemSubtotal, savings);
 
   return (
     <div className="app__basket bg-white p-8  mt-9 w-auto space-y-3 m-2 md:w-[45rem] text-xl md:text-2xl md:mt-2">
