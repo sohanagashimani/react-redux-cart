@@ -7,12 +7,7 @@ const Products = () => {
   // console.log(cart);
   const dispatch = useDispatch();
   const handleAddProduct = (item) => {
-    dispatch(
-      addItem({
-        type: "ADD_ITEM",
-        payload: item,
-      })
-    );
+    dispatch(addItem({ payload: item }));
   };
 
   return (

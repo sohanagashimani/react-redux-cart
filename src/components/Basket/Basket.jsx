@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { increaseItem, decreaseItem, offer } from "../../actions";
+import { increaseItem, decreaseItem, removeItem } from "../../actions";
 import data from "../../data";
 
 const Basket = () => {
@@ -15,24 +15,22 @@ const Basket = () => {
 
   useEffect(() => {
     cart?.forEach((item) => {
-      offer(
-        dispatch({
-          type: "OFFER",
-          payload: {
-            cart,
-            item,
-            setSavings,
-            setItemSubtotal,
-          },
-        })
-      );
+      // dispatch(offer({ payload: { cart, item, setSavings, setItemSubtotal } }));
+      dispatch({
+        type: "OFFER",
+        payload: {
+          cart,
+          item,
+          setSavings,
+          setItemSubtotal,
+        },
+      });
     });
     itemsNotInCart.forEach((item) => {
       defaults(item);
     });
     // eslint-disable-next-line
   }, [cart]);
-
   let itemNameInCart = [];
   cart?.forEach((item) => {
     if (!itemNameInCart.includes(item.id)) {
@@ -73,10 +71,10 @@ const Basket = () => {
     totalSavings = totalSavings + item;
   });
   const handleIncrease = (item) => {
-    increaseItem(dispatch({ type: "INCREASE_ITEM", payload: item }));
+    dispatch(increaseItem({ payload: item }));
   };
   const handleDecrease = (item) => {
-    decreaseItem(dispatch({ type: "DECREASE_ITEM", payload: item }));
+    dispatch(decreaseItem({ payload: item }));
   };
 
   return (
@@ -106,7 +104,7 @@ const Basket = () => {
                     if (item.count > 1) {
                       handleDecrease(item);
                     } else {
-                      dispatch({ type: "REMOVE_ITEM", payload: item });
+                      dispatch(removeItem({ payload: item }));
                     }
                   }}
                 >

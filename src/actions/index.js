@@ -25,24 +25,4 @@ const decreaseItem = (item) => {
   };
 };
 
-const offer = (
-  item,
-  cart,
-  setItemSubtotal,
-  isSoupInCart,
-  soupCount,
-  setSavings
-) => {
-  return {
-    type: "OFFER",
-    payload: {
-      item,
-      cart,
-      setItemSubtotal,
-      isSoupInCart,
-      soupCount,
-      setSavings,
-    },
-  };
-};
-export { addItem, removeItem, increaseItem, decreaseItem, offer };
+export { addItem, removeItem, increaseItem, decreaseItem };
